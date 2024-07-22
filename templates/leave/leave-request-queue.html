@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mx-auto" style="width: 76rem;">
+    <div class="card-body">
+        <h5 class="card-title mb-3">All Leave Requests</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Start Date</th>
+                    <th>End Date</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th>Admin Response</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leave %}
+                <tr>
+                    <td>{{ leave.user }}</td>
+                    <td>{{ leave.reason }}</td>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.comment }}</td>
+                    {% if leave.status == 'Pending' %}
+                    <td>
+                        <span class="badge bg-warning">Pending</span>
+                    </td>
+                    {% elif leave.status == 'Approve' %}
+                    <td>
+                        <span class="badge bg-success">Approve</span>
+                    </td>
+                    {% elif leave.status == 'Decline' %}
+                    <td>
+                        <span class="badge bg-danger">Decline</span>
+                    </td>
+                    {% endif %}
+                    {% if leave.admin_comment %}
+                    <td>{{ leave.admin_comment }}</td>
+                    {% else %}
+                    <td>Nil</td>
+                    {% endif %}
+                    <td>{{ leave.date_created }}</td>
+                    <td>
+                        <a href="{%url 'admin-response' leave.pk %}">Review</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+{%load widget_tweaks%}
+
+{%block content%}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mx-auto" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title mb-0">Respond to Leave Request {{leave.user}}</h5>
+
+                <form method="post">
+                    {%csrf_token%}
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select Status</label>
+                        {%render_field form.status class="form-control" %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Additional Statement</label>
+                        {%render_field form.admin_comment  class="form-control" %}
+                    </div>
+                    
+                   
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}
